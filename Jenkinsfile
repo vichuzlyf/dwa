@@ -27,7 +27,10 @@ pipeline{
             steps {
                 // sh 'mkdir -p reports'
                 //sh 'trivy image sonarqube > /home/trivy/Report_PL.txt'
+               echo "Scanning Sonarqube"
                sh 'trivy image sonarqube'
+               echo "Scanning Tomcat"
+               sh 'trivy image tomcat'
             }
         }
         stage('SonarQube') {
@@ -43,7 +46,14 @@ pipeline{
                 echo "Deploying .."
                 echo "Current Workspace :${env.WORKSPACE}"
                 //sh "scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/DWA/target/customwarname.war  Cyberone@54321@52.172.252.88:/usr/local/tomcat/webapps"
-                sh  "docker cp ${env.WORKSPACE}/target/dwa.war 1bd62bbb7c2e:/usr/local/tomcat/webapps"
+                echo "Create docker_deploy folder"
+                sh 'mkdir docker_deploy'
+                echo "Copy war file to docker_deploy"
+                sh 'cp ${env.WORKSPACE}/target/dwa.war ${env.WORKSPACE/docker_deploy}'
+                sh 'cp ${env.WORKSPACE}/dockerfile ${env.WORKSPACE/docker_deploy}' 
+                sh 'docker build -t MyTomcat .'
+                sh 'docker run -itd -p 80:8090 MyTomcat'
+                //sh  "docker cp ${env.WORKSPACE}/target/dwa.war 1bd62bbb7c2e:/usr/local/tomcat/webapps"
             }   
         }
         
