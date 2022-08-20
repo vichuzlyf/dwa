@@ -49,8 +49,8 @@ pipeline{
                 echo "Create docker_deploy folder"
                 sh 'mkdir docker_deploy'
                 echo "Copy war file to docker_deploy"
-                sh 'cp ${env.WORKSPACE}/target/dwa.war ${env.WORKSPACE/docker_deploy}'
-                sh 'cp ${env.WORKSPACE}/dockerfile ${env.WORKSPACE/docker_deploy}' 
+                sh 'cp target/dwa.war docker_deploy/'
+                sh 'cp dockerfile docker_deploy' 
                 sh 'docker build -t MyTomcat .'
                 sh 'docker run -itd -p 80:8090 MyTomcat'
                 //sh  "docker cp ${env.WORKSPACE}/target/dwa.war 1bd62bbb7c2e:/usr/local/tomcat/webapps"
