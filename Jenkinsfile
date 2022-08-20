@@ -35,8 +35,9 @@ pipeline{
         stage('Deploy'){
             steps{
                 echo "Deploying .."
+                echo "Current Workspace :".${WORKSPACE}
                 //sh "scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/DWA/target/customwarname.war  Cyberone@54321@52.172.252.88:/usr/local/tomcat/webapps"
-                  sh  "docker cp /var/lib/jenkins/workspace/DWA/target/dwa.war 1bd62bbb7c2e:/usr/local/tomcat/webapps"
+                  //sh  "docker cp /var/lib/jenkins/workspace/DWA/target/dwa.war 1bd62bbb7c2e:/usr/local/tomcat/webapps"
             }   
         }
         
@@ -44,7 +45,7 @@ pipeline{
             steps{
                // sshagent(['zap']){
                // sh 'ssh -o StrictHostKeyChecking=no "docker run -t owasp/zap2docker-stable zap-baseline.sh -t http://52.172.252.88:8888/dwa"'
-               sh 'docker run -t owasp/zap2docker-stable zap-baseline.py -t http://52.172.252.88:8888/dwa || true'
+               //sh 'docker run -t owasp/zap2docker-stable zap-baseline.py -t http://52.172.252.88:8888/dwa || true'
               //  sh 'docker run -v /home/zap-report:/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py -t http://52.172.252.88:8888/dwa -g gen.conf -r testreport.html '
                 // }
                // sh './zap.sh'
@@ -52,7 +53,7 @@ pipeline{
          }
         stage ('Bin'){
             steps{
-               sh 'docker rm $(docker ps -a -f status=exited -q)'
+               //sh 'docker rm $(docker ps -a -f status=exited -q)'
             }
         }
         
