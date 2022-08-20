@@ -10,7 +10,7 @@ pipeline{
         
         stage('SCM'){
             steps{
-                git 'https://github.com/soumenmaitra/dwa.git'
+                git 'https://github.com/vichuzlyf/dwa.git'
 
             }
          }        
@@ -29,14 +29,6 @@ pipeline{
                 //sh 'trivy image sonarqube > /home/trivy/Report_PL.txt'
                sh 'trivy image sonarqube'
             }
-        }
-                
-        stage('SonarQube') {
-             steps{
-                     withSonarQubeEnv('SonarQube_9.5') { 
-                     sh "mvn sonar:sonar"
-                     }
-              }
         }
        
         
