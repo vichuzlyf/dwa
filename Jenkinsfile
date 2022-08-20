@@ -30,14 +30,20 @@ pipeline{
                sh 'trivy image sonarqube'
             }
         }
-       
+        stage('SonarQube') {
+             steps{
+                     withSonarQubeEnv('SonarScanner') { 
+                     sh "mvn sonar:sonar"
+                     }
+              }
+        }
         
         stage('Deploy'){
             steps{
                 echo "Deploying .."
                 echo "Current Workspace :${env.WORKSPACE}"
                 //sh "scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/DWA/target/customwarname.war  Cyberone@54321@52.172.252.88:/usr/local/tomcat/webapps"
-                  //sh  "docker cp /var/lib/jenkins/workspace/DWA/target/dwa.war 1bd62bbb7c2e:/usr/local/tomcat/webapps"
+                sh  "docker cp ${env.WORKSPACE}/target/dwa.war 1bd62bbb7c2e:/usr/local/tomcat/webapps"
             }   
         }
         
