@@ -71,7 +71,8 @@ pipeline{
         stage ('Bin'){
             steps{
                 echo "Remove Docker Image"
-               //sh 'docker rm $(docker ps -a -f status=exited -q)'
+                sh 'rmdir docker_deploy'
+                sh 'docker rm $(docker ps -a -f status=exited -q)'
             }
         }
         
