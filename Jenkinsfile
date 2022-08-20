@@ -41,23 +41,23 @@ pipeline{
             }   
         }
         
-        stage('ZAP'){
-            steps{
-                echo "Scanning ZAP"
+        //stage('ZAP'){
+        //    steps{
+        //        echo "Scanning ZAP"
                // sshagent(['zap']){
                // sh 'ssh -o StrictHostKeyChecking=no "docker run -t owasp/zap2docker-stable zap-baseline.sh -t http://52.172.252.88:8888/dwa"'
                //sh 'docker run -t owasp/zap2docker-stable zap-baseline.py -t http://52.172.252.88:8888/dwa || true'
               //  sh 'docker run -v /home/zap-report:/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py -t http://52.172.252.88:8888/dwa -g gen.conf -r testreport.html '
                 // }
                // sh './zap.sh'
-            }
-         }
-        stage ('Bin'){
-            steps{
-                echo "Remove Docker Image"
+        //    }
+        // }
+        //stage ('Bin'){
+        //    steps{
+        //        echo "Remove Docker Image"
                //sh 'docker rm $(docker ps -a -f status=exited -q)'
-            }
-        }
+        //    }
+        //}
         
         
        
